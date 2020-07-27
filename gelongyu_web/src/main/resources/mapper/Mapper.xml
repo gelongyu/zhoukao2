@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gelongyu.dao.MeetingDao">
+
+    <select id="list" resultType="map">
+        SELECT t.id,t.code,t.name,t.start_time,t.end_time,GROUP_CONCAT(m.name)AS mname,t.create_time FROM
+        t_meeting t LEFT JOIN t_meeting_type m
+        ON t.type = m.id
+        GROUP BY t.id
+
+    </select>
+
+    <select id="bianyi" resultType="map">
+        SELECT * FROM t_meeting_type
+    </select>
+
+    <insert id="add" >
+        INSERT INTO t_meeting VALUES(NULL,#{code},#{name},#{start_time},#{end_time},now(),#{type})
+    </insert>
+    <select id="hui" resultType="map">
+        SELECT * FROM t_meeting
+    </select>
+</mapper>
